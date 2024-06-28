@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Google Maps API Example</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB-kzc9QHgXMKcLxPZMxikctMHYDLpEErM&callback=initMap" async defer></script>
+    <script>
+      let map;
+
+      function initMap() {
+        const geocoder = new google.maps.Geocoder();
+        const address = "1600 Amphitheatre Parkway, Mountain View, CA";
+
+        geocoder.geocode({ address: address }, (results, status) => {
+          if (status === "OK") {
+            map = new google.maps.Map(document.getElementById("map"), {
+              center: results[0].geometry.location,
+              zoom: 15,
+            });
+            new google.maps.Marker({
+              position: results[0].geometry.location,
+              map: map,
+            });
+          } else {
+            alert("Geocode was not successful for the following reason: " + status);
+          }
+        });
+      }
+    </script>
+    <style>
+      /* Set the size of the map div */
+      #map {
+        height: 500px;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <h3>Google Maps API Example</h3>
+    <div id="map"></div>
+  </body>
+</html>
